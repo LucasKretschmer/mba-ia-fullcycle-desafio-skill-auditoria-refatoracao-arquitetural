@@ -1,0 +1,1 @@
+# mba-ia-fullcycle-desafio-skill-auditoria-refatoracao-arquitetural
