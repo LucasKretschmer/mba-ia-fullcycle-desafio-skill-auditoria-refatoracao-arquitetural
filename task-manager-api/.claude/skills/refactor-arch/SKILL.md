@@ -88,7 +88,8 @@ Só execute após confirmação explícita.
 3. **Plano:** defina a estrutura alvo conforme `mvc-guidelines.md`, adaptando ao nível de organização atual:
    - Projeto monolítico/desestruturado → criar a estrutura MVC completa.
    - Projeto já parcialmente em camadas → preservar o que já está certo, criar as camadas que faltam (ex.: controllers, config, middlewares) e mover responsabilidades para o lugar correto. Não reescreva por reescrever.
-   Imprima a árvore planejada antes de começar.
+   Imprima a árvore planejada (`## Planned Structure`) **antes de editar o primeiro arquivo**. Ela serve de contrato para o resumo final.
+   Se a remoção de arquivos legados for bloqueada por permissão, não contorne: liste os arquivos no resumo final e peça ao usuário para removê-los.
 4. **Execute** as transformações do playbook para cada finding, na ordem: config/segredos → camada de dados (models, queries seguras) → controllers/services → views/rotas → error handling → entry point → itens MEDIUM/LOW restantes.
    - Preserve o **contrato público**: mesmos métodos, paths, status codes e chaves de resposta. Exceções aceitas apenas quando a própria correção de segurança exige (ex.: não devolver hash de senha, proteger endpoint administrativo). Liste cada exceção como "mudança intencional de comportamento".
    - Preserve o comando de execução original (ex.: `python app.py`, `npm start`). Se o entry point mudar de lugar, mantenha um shim no local antigo.
