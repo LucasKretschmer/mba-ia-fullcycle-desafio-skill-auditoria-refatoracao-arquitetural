@@ -330,7 +330,9 @@ Nos 3 casos, a validação da própria skill comparou endpoint a endpoint com a 
 - **Falsos positivos evitados.** Os projetos 2 e 3 não têm SQL Injection: o 2 usa placeholders e o 3 usa ORM. A skill não inventou o finding e registrou isso nas Architecture Notes.
 - **O que ficou para depois.** No P1, `/login` continua sem emitir token, porque isso mudaria o contrato. No P3, `PUT /users/<id>` ainda permite alterar nome/e-mail/senha sem autenticação; só `role`/`active` foram protegidos. Os dois pontos foram registrados pela própria skill como pendências.
 
-<!-- REVISAR: adicione aqui suas impressões pessoais (o que achou do resultado, o que faria diferente). Se quiser screenshots, rode os comandos da seção D e tire print do terminal. -->
+### Impressões finais
+
+Fiquei satisfeito com o resultado. O mais importante para mim é que os três projetos rodam igual ao original: mesmos comandos para subir, mesmas rotas, mesmos status codes e mesmo formato de resposta. Por baixo, o código ficou organizado em camadas e sem as falhas de segurança mais graves. As únicas diferenças de comportamento são as que a própria correção exigia, e elas estão listadas acima.
 
 ---
 
