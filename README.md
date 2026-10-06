@@ -130,7 +130,13 @@ Cada item tem **sinais de detecção concretos** (ex.: "query dentro de `for` so
 
 ### Desafios encontrados
 
-<!-- REVISAR: escreva com suas palavras o que achou mais difícil. Os pontos abaixo são o que de fato aconteceu durante as execuções. -->
+Os dois pontos mais difíceis foram:
+
+1. **Fazer uma skill genérica que não fosse genérica demais.** Com instruções vagas ("encontre problemas de arquitetura"), o resultado varia muito entre projetos. Com instruções presas a um projeto ("quebre o `models.py` em três arquivos"), a skill deixa de funcionar nos outros. O equilíbrio veio de descrever os problemas por **sinais de detecção concretos**, como "query dentro de um `for` sobre o resultado de outra query", e não por nome de arquivo, e de criar uma regra explícita para o nível de organização do projeto. O task-manager foi o teste mais difícil, porque à primeira vista ele parece já estar em camadas.
+
+2. **Corrigir sem quebrar.** Várias correções de segurança mudam o comportamento da API por definição: tirar a senha da resposta, exigir token nas rotas de admin, devolver 400 onde antes estourava 500. Ao mesmo tempo, o desafio exige que os endpoints originais continuem respondendo. Resolvi separando os dois casos: a Fase 3 tira uma **baseline do sistema original** antes de mexer, compara endpoint a endpoint depois, e tudo que muda de propósito vai para a lista "Intentional Behavior Changes". Assim dá para diferenciar uma mudança proposital de uma regressão.
+
+Outros pontos que apareceram durante as execuções:
 
 - **Projeto parcialmente organizado.** O risco no task-manager era a skill olhar as pastas `models/routes/services` e concluir que já estava em MVC. Resolvi com a classificação "Camadas parciais" na análise (as pastas existem, mas as rotas acessam o ORM e têm regra) e com a regra de adaptação nas guidelines. Na execução, a skill manteve `models/` e `routes/` no lugar, criou `controllers/`, `config/` e `middlewares/`, e ainda tirou o CRUD de categorias de dentro de `report_routes.py`.
 - **Provar que "continua funcionando".** Sem baseline, o agente poderia declarar sucesso sem testar. Daí o passo obrigatório de baseline e a comparação endpoint a endpoint. A baseline acabou pegando coisas que a leitura do código não pegou:
